@@ -2,7 +2,7 @@ from pathlib import Path
 
 import click
 import torch
-from sklearn.metrics import f1_score, roc_auc_score
+from sklearn.metrics import f1_score, roc_auc_score, jaccard_score
 from torch.utils import data
 
 import datahandler
@@ -43,7 +43,10 @@ def main(data_directory, exp_directory, epochs, batch_size):
     optimizer = torch.optim.Adam(model.parameters(), lr=1e-4)
 
     # Specify the evaluation metrics
-    metrics = {'f1_score': f1_score, 'auroc': roc_auc_score}
+    metrics = {'f1_score': f1_score,
+    'auroc': roc_auc_score,
+    #'iou': jaccard_score
+    }
 
     # Create the dataloader
     dataloaders = datahandler.get_dataloader_single_folder(
